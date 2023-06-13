@@ -24,10 +24,11 @@ const opts: RouteShorthandOptions = {
 const server: FastifyInstance = Fastify({});
 const client = new Client(process.env.BEARER_TOKEN || "");
 
-server.post<{ Body: WebhookBody }>("/ghost", opts, async (request, _) => {
+server.post<{ Body: WebhookBody }>("/", opts, async (request, _) => {
   const { title, url } = request.body.post.current;
   const text = `[記事を投稿しました] ${title} 
 ${url}`;
+  console.log(text);
   await client.tweets.createTweet({ text });
   return;
 });
