@@ -33,7 +33,7 @@ ${url}`;
   return;
 });
 
-server.listen({ port: 3000, host: "127.0.0.1" }, (err, address) => {
+server.listen({ port: 3000, host: "::" }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
