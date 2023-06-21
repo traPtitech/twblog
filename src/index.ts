@@ -1,4 +1,4 @@
-import { Client } from "twitter-api-sdk";
+import { Client, basicAuthHeader } from "twitter-api-sdk";
 import Fastify, { FastifyInstance, RouteShorthandOptions } from "fastify";
 
 type WebhookBody = {
@@ -25,6 +25,7 @@ const server: FastifyInstance = Fastify({});
 const client = new Client(process.env.BEARER_TOKEN || "");
 
 server.post<{ Body: WebhookBody }>("/", opts, async (request, _) => {
+  console.log(request.body);
   const { title, url } = request.body.post.current;
   const text = `[記事を投稿しました] ${title} 
 ${url}`;
