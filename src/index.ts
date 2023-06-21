@@ -29,7 +29,8 @@ server.post<{ Body: WebhookBody }>("/", opts, async (request, _) => {
   const text = `[記事を投稿しました] ${title} 
 ${url}`;
   console.log(text);
-  await client.tweets.createTweet({ text });
+  const resp = await client.tweets.createTweet({ text });
+  console.log(resp);
   return;
 });
 
