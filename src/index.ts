@@ -1,4 +1,4 @@
-import { Client, basicAuthHeader } from "twitter-api-sdk";
+import { Client } from "twitter-api-sdk";
 import Fastify, { FastifyInstance, RouteShorthandOptions } from "fastify";
 
 type WebhookBody = {
