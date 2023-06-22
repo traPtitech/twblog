@@ -1,4 +1,4 @@
-import { Client } from "twitter-api-sdk";
+import { TwitterApi } from "twitter-api-v2";
 import Fastify, { FastifyInstance, RouteShorthandOptions } from "fastify";
 
 type WebhookBody = {
@@ -22,16 +22,16 @@ const opts: RouteShorthandOptions = {
   },
 };
 const server: FastifyInstance = Fastify({});
-const client = new Client(process.env.BEARER_TOKEN || "");
+const client = new TwitterApi(process.env.BEARER_TOKEN || "");
 
-server.post<{ Body: WebhookBody }>("/", opts, async (request, _) => {
+server.post<{ Body: WebhookBody }>("/webhook", opts, async (request, _) => {
   console.log(request.body);
   const { title, url } = request.body.post.current;
   const text = `[記事を投稿しました] ${title} 
 ${url}`;
   console.log(text);
   try {
-    const resp = await client.tweets.createTweet({ text });
+    const resp = await client.v2.tweet(text);
     console.log(resp);
   } catch (e) {
     console.error(e);
