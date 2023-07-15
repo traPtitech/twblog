@@ -31,6 +31,9 @@ const client = new TwitterApi({
 
 server.post<{ Body: WebhookBody }>("/webhook", opts, async (request, _) => {
   console.log(request.body);
+  if (!request.body.post.current.url.startsWith("https://trap.jp/post/")) {
+    return;
+  }
   const { title, url } = request.body.post.current;
   const text = `[記事を投稿しました] ${title} 
 ${url}`;
