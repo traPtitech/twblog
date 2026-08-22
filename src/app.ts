@@ -21,6 +21,9 @@ export type AppOptions = {
   logger?: boolean;
 };
 
+const maxTitleLength = 100;
+const titleSegmenter = new Intl.Segmenter("ja", { granularity: "grapheme" });
+
 const webhookSchema = {
   params: {
     type: "object",
@@ -62,6 +65,17 @@ const isTargetPost = (rawUrl: string): boolean => {
   }
 };
 
+const truncateTitle = (title: string): string => {
+  const segments = Array.from(
+    titleSegmenter.segment(title.normalize("NFC")),
+    ({ segment }) => segment,
+  );
+  if (segments.length <= maxTitleLength) {
+    return segments.join("");
+  }
+  return `${segments.slice(0, maxTitleLength - 1).join("")}…`;
+};
+
 export const buildApp = (options: AppOptions): FastifyInstance => {
   if (options.webhookToken.length === 0) {
     throw new Error("webhookToken must not be empty");
@@ -85,7 +99,7 @@ export const buildApp = (options: AppOptions): FastifyInstance => {
         return reply.code(204).send();
       }
 
-      const text = `[記事を投稿しました] ${title} \n${url}`;
+      const text = `[記事を投稿しました] ${truncateTitle(title)} \n${url}`;
       try {
         await options.tweet(text);
       } catch (error) {

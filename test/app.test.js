@@ -29,6 +29,43 @@ test("publishes a target post", async (t) => {
   ]);
 });
 
+test("truncates long titles without splitting graphemes and preserves the URL", async (t) => {
+  const tweets = [];
+  const app = buildApp({
+    webhookToken,
+    tweet: async (text) => tweets.push(text),
+  });
+  t.after(() => app.close());
+
+  const cases = [
+    {
+      title: "あ".repeat(101),
+      expectedTitle: `${"あ".repeat(99)}…`,
+    },
+    {
+      title: "🎉".repeat(101),
+      expectedTitle: `${"🎉".repeat(99)}…`,
+    },
+  ];
+
+  for (const { title, expectedTitle } of cases) {
+    const response = await app.inject({
+      method: "POST",
+      url: `/webhook/${webhookToken}`,
+      payload: {
+        post: {
+          current: { title, url: "https://trap.jp/post/1595/" },
+        },
+      },
+    });
+    assert.equal(response.statusCode, 204);
+    assert.equal(
+      tweets.at(-1),
+      `[記事を投稿しました] ${expectedTitle} \nhttps://trap.jp/post/1595/`,
+    );
+  }
+});
+
 test("rejects an incorrect webhook token", async (t) => {
   let calls = 0;
   const app = buildApp({
