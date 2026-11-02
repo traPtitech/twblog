@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "fastify": "5.12.1",
-    "twitter-api-v2": "1.29.1"
+    "twitter-api-v2": "1.31.0"
   }
 }

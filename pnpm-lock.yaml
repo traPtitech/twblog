@@ -12,8 +12,8 @@ importers:
         specifier: 5.12.1
         version: 5.12.1
       twitter-api-v2:
-        specifier: 1.29.1
-        version: 1.29.1
+        specifier: 1.31.0
+        version: 1.31.0
     devDependencies:
       '@types/node':
         specifier: 24.13.3
@@ -317,8 +317,8 @@ packages:
     resolution: {integrity: sha512-m1TdR/rvT7kgGJZhspNtXdsdYk0fddFpJJFlG5s+UkPFo6lkLoZ3YLOaovPYjq1R75NP5JfeTlSHaOsE09peCg==}
     engines: {node: '>=20'}
 
-  twitter-api-v2@1.29.1:
-    resolution: {integrity: sha512-l5U8aP6woe+gv0RViz/YA0YEG/NRtqkO1iXWqxNfrn3MSc2V85u6w44oNDBWhy8zVV9r36SJv/uXNmnfni8Uxw==}
+  twitter-api-v2@1.31.0:
+    resolution: {integrity: sha512-slrAXaibHjTQTXxm50+bGdT6YfHYrpwIslmXXr4kOtEGtTN3OTbODj0/O5ZVckILiTioZtbIHdqjsYFjj0vcRg==}
 
   typescript@7.0.2:
     resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
@@ -570,7 +570,7 @@ snapshots:
 
   toad-cache@3.7.4: {}
 
-  twitter-api-v2@1.29.1: {}
+  twitter-api-v2@1.31.0: {}
 
   typescript@7.0.2:
     optionalDependencies:
